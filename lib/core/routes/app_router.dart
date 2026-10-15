@@ -1,6 +1,6 @@
 import 'package:bookia/core/routes/app_routes.dart';
 import 'package:bookia/feature/auth/presentation/ui/login_screen.dart';
-import 'package:bookia/feature/welcome/presentation/ui/register_screen.dart';
+import 'package:bookia/feature/auth/presentation/ui/register_screen.dart';
 import 'package:bookia/feature/welcome/presentation/ui/welcome_screen.dart';
 import 'package:flutter/material.dart';
 
