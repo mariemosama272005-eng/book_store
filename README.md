@@ -1,17 +1,8 @@
 # bookia
 
-A new Flutter project.
+# Splash Screen
+<img width="1154" height="1697" alt="image" src="https://github.com/user-attachments/assets/4dfadc3a-4367-4876-94e1-06adb9995b91" />
 
-## Getting Started
+# Welcome Screen
+<img width="1216" height="1790" alt="Screenshot 2026-10-15 214549" src="https://github.com/user-attachments/assets/0cf7585b-f3a1-4ee4-b3ab-d2490c11b073" />
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Learn Flutter](https://docs.flutter.dev/get-started/learn-flutter)
-- [Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Flutter learning resources](https://docs.flutter.dev/reference/learning-resources)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
