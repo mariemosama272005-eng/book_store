@@ -20,7 +20,7 @@ class BookiaApp extends StatelessWidget {
           fontFamily: 'DM',
           scaffoldBackgroundColor: AppColors.backgroundc,
         ),
-      initialRoute: AppRoutes.loginScreen,
+      initialRoute: AppRoutes.welcomeScreen,
       onGenerateRoute: AppRouter.onGenerateRoute,
         localizationsDelegates: context.localizationDelegates,
       supportedLocales: context.supportedLocales,
