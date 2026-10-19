@@ -1,5 +1,13 @@
 {
     "order":"Order Your Book Now!",
     "longin":"Login",
-    "register":"Register"
+    "register":"Register",
+    "welcome":"Welcome back! Glad\nto see you, Again!",
+    "email":"Enter your email",
+    "pass":"Enter your password",
+    "emailRe":"Email is required",
+    "validEmail":"please enter valid email",
+    "passReq":"Password is required",
+    "validPass":"please enter valid password contain upper case ,lower case ,special character and numbers",
+    "forgetpass":"Forget password?"
 }

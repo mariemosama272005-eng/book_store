@@ -1,4 +1,5 @@
 import 'package:bookia/core/routes/app_routes.dart';
+import 'package:bookia/feature/auth/presentation/ui/forgetPass_screen.dart';
 import 'package:bookia/feature/auth/presentation/ui/login_screen.dart';
 import 'package:bookia/feature/auth/presentation/ui/register_screen.dart';
 import 'package:bookia/feature/welcome/presentation/ui/welcome_screen.dart';
@@ -13,6 +14,8 @@ class AppRouter {
           return MaterialPageRoute(builder:(_)=>WelcomeScreen());
           case AppRoutes.registerScreen:
           return MaterialPageRoute(builder:(_)=>RegisterScreen());
+          case AppRoutes.forgetpassScreen:
+          return MaterialPageRoute(builder:(_)=>ForgetPasswordScreen());
         }
 
   }
