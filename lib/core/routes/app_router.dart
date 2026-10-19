@@ -22,7 +22,11 @@ class AppRouter {
           case AppRoutes.welcomeScreen:
           return MaterialPageRoute(builder:(_)=>WelcomeScreen());
           case AppRoutes.registerScreen:
-          return MaterialPageRoute(builder:(_)=>RegisterScreen());
+          return MaterialPageRoute(builder:(_){
+            return BlocProvider(
+              create: (context) =>  AuthcubitCubit(),
+              child: RegisterScreen(),
+            );});
           case AppRoutes.forgetpassScreen:
           return MaterialPageRoute(builder:(_)=>ForgetPasswordScreen());
           case AppRoutes.homeScreen:

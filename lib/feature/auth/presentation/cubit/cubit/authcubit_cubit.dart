@@ -17,5 +17,24 @@ login({required String email,required String password})async{
     emit(LoginErrorState());
   }
 }
+Future<void> register({
+  required String name,
+  required String email,
+  required String password,
+}) async {
+  emit(registerLoadingState());
+  
+  final response = await AuthRepo.Register(
+    name: name,
+    email: email,
+    password: password,
+  );
+  
+  if (response) {
+    emit(RegisterSuccessState());
+  } else {
+    emit(RegisterErrorState());
+  }
+}
 
 }

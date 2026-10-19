@@ -9,5 +9,10 @@
     "validEmail":"please enter valid email",
     "passReq":"Password is required",
     "validPass":"please enter valid password contain upper case ,lower case ,special character and numbers",
-    "forgetpass":"Forget password?"
+    "forgetpass":"Forget password?",
+    "hello":"Hello! Register to get started",
+    "name":"name",
+    "nameReq":"Name is required"
+    
+
 }
