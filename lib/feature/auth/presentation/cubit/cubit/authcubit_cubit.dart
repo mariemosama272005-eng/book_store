@@ -22,6 +22,9 @@ Future<void> register({
   required String name,
   required String email,
   required String password,
+  required String passwordConfirmation,
+  required String address,
+  required String city,
 }) async {
   emit(registerLoadingState());
   
@@ -29,6 +32,9 @@ Future<void> register({
     name: name,
     email: email,
     password: password,
+    passwordConfirmation: passwordConfirmation, 
+    city: city,
+    address: address,
   );
   
   if (response) {
@@ -37,5 +43,4 @@ Future<void> register({
     emit(RegisterErrorState());
   }
 }
-
 }

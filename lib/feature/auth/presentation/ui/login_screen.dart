@@ -1,3 +1,5 @@
+import 'package:bookia/core/routes/app_routes.dart';
+import 'package:bookia/core/theme/app_colors.dart';
 import 'package:bookia/core/theme/app_textStyle.dart';
 import 'package:bookia/feature/auth/presentation/ui/wedgit/appBar_wedgit.dart';
 import 'package:bookia/feature/auth/presentation/ui/wedgit/login_form.dart';
@@ -20,6 +22,21 @@ class LoginScreen extends StatelessWidget {
             Text("welcome".tr(),style: AppTextstyle.font30regular,),
             32.verticalSpace,
             LoginForm(),
+          Align(
+            alignment: AlignmentGeometry.bottomEnd,
+            child: Row(
+              children: [
+                Text("noAccount".tr(),style:AppTextstyle.subTextstyle,),
+                InkWell(
+                  onTap: () {
+                    Navigator.pushNamed(context, AppRoutes.registerScreen);
+
+                  },
+                  child: Text("regNow".tr(),style: AppTextstyle.subTextstyle.copyWith(color: AppColors.mainColor),),
+                )
+              ],
+            ),
+          )
             
           ],
         ),

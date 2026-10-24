@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:bookia/core/routes/app_routes.dart';
 import 'package:bookia/core/shared_wedgits/mainButton_wedgit.dart';
 import 'package:bookia/core/shared_wedgits/textForm_wedgit.dart';
@@ -23,6 +25,8 @@ class _RegisterFormState extends State<RegisterForm> {
   var emailController = TextEditingController();
   var passController = TextEditingController();
   var confirmPassController = TextEditingController();
+  var addressController = TextEditingController();
+  var cityController = TextEditingController();
 
   @override
   void dispose() {
@@ -30,6 +34,8 @@ class _RegisterFormState extends State<RegisterForm> {
     emailController.dispose();
     passController.dispose();
     confirmPassController.dispose();
+    addressController.dispose();
+    cityController.dispose();
     super.dispose();
   }
 
@@ -51,12 +57,12 @@ class _RegisterFormState extends State<RegisterForm> {
         } else if (state is RegisterSuccessState) { 
           Navigator.pop(context); 
           Navigator.pushReplacementNamed(context, AppRoutes.homeScreen);
-        } else if (state is RegisterErrorState ) {
+        } else if (state is RegisterErrorState) {
           Navigator.pop(context); 
           showDialog(
             context: context,
             builder: (context) => AlertDialog(
-              content: Text("Error".tr()),
+              content: Text("Error"),
             ),
           );
         }
@@ -65,7 +71,7 @@ class _RegisterFormState extends State<RegisterForm> {
         key: formState,
         child: Column(
           children: [
-            
+         
             TextformWedgit(
               controller: nameController,
               hintT: "name".tr(), 
@@ -93,6 +99,7 @@ class _RegisterFormState extends State<RegisterForm> {
             ),
             15.verticalSpace,
            
+        
             TextformWedgit(
               controller: passController,
               hintT: "pass".tr(),
@@ -109,9 +116,10 @@ class _RegisterFormState extends State<RegisterForm> {
             ),
             15.verticalSpace,
             
+            
             TextformWedgit(
               controller: confirmPassController,
-              hintT: "confirmPass".tr(), 
+              hintT: "confPass".tr(), 
               isPass: true,
               validator: (v) {
                 if (v == null || v.isEmpty) {
@@ -123,7 +131,34 @@ class _RegisterFormState extends State<RegisterForm> {
                 return null;
               },
             ),
+            15.verticalSpace,
+
+           
+            TextformWedgit(
+              controller: addressController,
+              hintT: "address".tr(), 
+              validator: (v) {
+                if (v == null || v.isEmpty) {
+                  return "addressReq".tr();
+                }
+                return null;
+              },
+            ),
+            15.verticalSpace,
+
+           
+            TextformWedgit(
+              controller: cityController,
+              hintT: "city".tr(), 
+              validator: (v) {
+                if (v == null || v.isEmpty) {
+                  return "cityReq".tr();
+                }
+                return null;
+              },
+            ),
             30.verticalSpace,
+            
             
             MainbuttonWedgit(
               title: "register".tr(),
@@ -133,6 +168,9 @@ class _RegisterFormState extends State<RegisterForm> {
                         name: nameController.text,
                         email: emailController.text,
                         password: passController.text,
+                        passwordConfirmation: confirmPassController.text,
+                        address: addressController.text,
+                        city: cityController.text,
                       );
                 }
               },

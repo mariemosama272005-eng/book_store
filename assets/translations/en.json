@@ -12,7 +12,15 @@
     "forgetpass":"Forget password?",
     "hello":"Hello! Register to get started",
     "name":"name",
-    "nameReq":"Name is required"
+    "nameReq":"Name is required",
+    "noAccount":"Don’t have an account? ",
+    "regNow":"Register Now",
+    "confPass":"confirmPass",
+    "passNotMatch":"Password not match",
+    "address":"Adrees",
+     "addressReq":"Address is reauired",
+     "city":"City",
+     "cityReq":"City is required"
     
 
 }

@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:bookia/core/routes/app_routes.dart';
 import 'package:bookia/core/shared_wedgits/mainButton_wedgit.dart';
 import 'package:bookia/core/shared_wedgits/textForm_wedgit.dart';
