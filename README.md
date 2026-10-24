@@ -15,9 +15,10 @@
 <img width="1239" height="1794" alt="image" src="https://github.com/user-attachments/assets/ac44b253-04a1-4baf-aaff-1081d7425219" />
 
 # Register Screen Eng
-<img width="1170" height="1795" alt="image" src="https://github.com/user-attachments/assets/d41192c8-707e-4446-933d-d28428c2d967" />
+<img width="1172" height="1798" alt="Screenshot 2026-10-24 160853" src="https://github.com/user-attachments/assets/a2a45e39-b1b8-45dc-9eee-a6ea170ec330" />
 
 # Register Screen ar
-<img width="1209" height="1779" alt="image" src="https://github.com/user-attachments/assets/94ff6bdf-f210-447a-80c7-dc935bf33f5c" />
+<img width="1217" height="1764" alt="Screenshot 2026-10-24 161825" src="https://github.com/user-attachments/assets/664ccddf-fb06-48b2-ab25-a3d2301118ad" />
+
 
 
