@@ -17,6 +17,7 @@ login({required String email,required String password})async{
     emit(LoginErrorState());
   }
 }
+
 Future<void> register({
   required String name,
   required String email,
