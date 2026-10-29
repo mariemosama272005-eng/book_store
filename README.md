@@ -28,5 +28,9 @@
 # search screen
 <img width="1205" height="1801" alt="Screenshot 2026-10-29 233612" src="https://github.com/user-attachments/assets/199ecf09-cb60-45cb-83e6-2bf695420a85" />
 
+# Book Details Screen 
+<img width="1194" height="1758" alt="image" src="https://github.com/user-attachments/assets/b6430143-f30b-4fe2-9933-73b68b60b897" />
+
+
 
 
