@@ -1,3 +1,5 @@
+
+
 # bookia
 
 # Splash Screen
@@ -21,8 +23,10 @@
 <img width="1217" height="1764" alt="Screenshot 2026-10-24 161825" src="https://github.com/user-attachments/assets/664ccddf-fb06-48b2-ab25-a3d2301118ad" />
 
 # Home Screen
-<img width="1214" height="1808" alt="Screenshot 2026-10-26 095327" src="https://github.com/user-attachments/assets/3463dd9b-9983-4a25-834d-7850e9a48011" />
+<img width="1206" height="1802" alt="Screenshot 2026-10-29 233507" src="https://github.com/user-attachments/assets/8579f1a6-e6ca-44bb-8f1d-093f57f2d906" />
 
+# search screen
+<img width="1205" height="1801" alt="Screenshot 2026-10-29 233612" src="https://github.com/user-attachments/assets/199ecf09-cb60-45cb-83e6-2bf695420a85" />
 
 
 
