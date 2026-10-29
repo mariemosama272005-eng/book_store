@@ -6,58 +6,67 @@ import 'package:bookia/feature/auth/presentation/cubit/cubit/authcubit_cubit.dar
 import 'package:bookia/feature/auth/presentation/ui/forgetPass_screen.dart';
 import 'package:bookia/feature/auth/presentation/ui/login_screen.dart';
 import 'package:bookia/feature/auth/presentation/ui/register_screen.dart';
+import 'package:bookia/feature/book_details/presentation/cubit/cubit/bookdetailscubit_cubit.dart';
+import 'package:bookia/feature/book_details/presentation/ui/bookDetailsScreen.dart';
 import 'package:bookia/feature/welcome/presentation/ui/welcome_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AppRouter {
- static Route? onGenerateRoute(RouteSettings setting){
-     switch(setting.name){
-
-          case AppRoutes.loginScreen:
-          return MaterialPageRoute(builder:(_){
+  static Route? onGenerateRoute(RouteSettings setting) {
+    switch (setting.name) {
+      case AppRoutes.loginScreen:
+        return MaterialPageRoute(
+          builder: (_) {
             return BlocProvider(
               create: (context) => AuthcubitCubit(),
               child: LoginScreen(),
             );
-            },
-            );
+          },
+        );
 
-          case AppRoutes.welcomeScreen:
-          return MaterialPageRoute(builder:(_)=>WelcomeScreen());
+      case AppRoutes.welcomeScreen:
+        return MaterialPageRoute(builder: (_) => WelcomeScreen());
 
-          case AppRoutes.registerScreen:
-          return MaterialPageRoute(builder:(_){
+      case AppRoutes.registerScreen:
+        return MaterialPageRoute(
+          builder: (_) {
             return BlocProvider(
-              create: (context) =>  AuthcubitCubit(),
+              create: (context) => AuthcubitCubit(),
               child: RegisterScreen(),
             );
-            }
-            );
-            
-          case AppRoutes.forgetpassScreen:
-          return MaterialPageRoute(builder:(_)=>ForgetPasswordScreen());
+          },
+        );
 
-          case AppRoutes.homeScreen:
-          return MaterialPageRoute(builder:(_){
-           return BlocProvider(
+      case AppRoutes.forgetpassScreen:
+        return MaterialPageRoute(builder: (_) => ForgetPasswordScreen());
+
+      case AppRoutes.bookditailsScreen:
+      int id=setting.arguments as int;
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider(
+            create: (context) => BookdetailscubitCubit()..getDetails(id),
+            child: Bookdetailsscreen(),
+          ),
+        );
+
+      case AppRoutes.homeScreen:
+        return MaterialPageRoute(
+          builder: (_) {
+            return BlocProvider(
               create: (context) => HomeCubit()..getbestsellerBooks(),
               child: HomeScreen(),
             );
-            
-            }
-            );
- 
-        
-       case AppRoutes.searchScreen:
-       return MaterialPageRoute(builder:(_)=>
-        BlocProvider(
-          create: (context) => HomeCubit()..search(""),
-          child: Searchscreen(),
-        )
+          },
         );
 
-     }
-
+      case AppRoutes.searchScreen:
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider(
+            create: (context) => HomeCubit()..search(""),
+            child: Searchscreen(),
+          ),
+        );
+    }
   }
 }

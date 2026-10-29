@@ -1,4 +1,6 @@
 
+import 'package:bookia/feature/book_details/presentation/ui/bookDetailsScreen.dart';
+
 class AppRoutes {
 static const String loginScreen="LoginScreen";
 static const String welcomeScreen="WelcomeScreen";
@@ -6,6 +8,7 @@ static const String registerScreen="RegisterScreen";
 static const String forgetpassScreen="ForgetPasswordScreen";
 static const String homeScreen="HomeScreen";
 static const String searchScreen="SearchScreen";
+static const String bookditailsScreen="Bookdetailsscreen";
 
 
 
