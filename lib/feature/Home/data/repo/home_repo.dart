@@ -19,4 +19,24 @@ return book;
   return null;
 }
   }
+
+ static search(String text)async{
+try {
+  final response=await DioFactory.dio?.get(ApiEndpoints.search,
+  queryParameters: {
+    "name":text
+  }
+  );
+  if(response?.statusCode==200){
+BookModel book=BookModel.fromJson(response?.data);
+return book.data?.products;
+  }else{
+    return null;
+  }
+  
+} catch (e) {
+  return null;
+}
+
+ } 
 }

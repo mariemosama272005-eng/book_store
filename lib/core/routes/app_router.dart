@@ -1,6 +1,7 @@
 import 'package:bookia/core/routes/app_routes.dart';
 import 'package:bookia/feature/Home/presentation/cubit/cubit/home_cubit.dart';
 import 'package:bookia/feature/Home/presentation/ui/home_screen.dart';
+import 'package:bookia/feature/Home/presentation/ui/searchscreen.dart';
 import 'package:bookia/feature/auth/presentation/cubit/cubit/authcubit_cubit.dart';
 import 'package:bookia/feature/auth/presentation/ui/forgetPass_screen.dart';
 import 'package:bookia/feature/auth/presentation/ui/login_screen.dart';
@@ -43,8 +44,20 @@ class AppRouter {
               create: (context) => HomeCubit()..getbestsellerBooks(),
               child: HomeScreen(),
             );
-            });
-        }
+            
+            }
+            );
+ 
+        
+       case AppRoutes.searchScreen:
+       return MaterialPageRoute(builder:(_)=>
+        BlocProvider(
+          create: (context) => HomeCubit()..search(""),
+          child: Searchscreen(),
+        )
+        );
+
+     }
 
   }
 }

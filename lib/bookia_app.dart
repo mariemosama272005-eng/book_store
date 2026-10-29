@@ -18,6 +18,7 @@ class BookiaApp extends StatelessWidget {
       minTextAdapt: true,
       splitScreenMode: true,
       child: MaterialApp(
+        debugShowCheckedModeBanner: false,
         theme: ThemeData(
           fontFamily: 'DM',
           scaffoldBackgroundColor: AppColors.backgroundc,

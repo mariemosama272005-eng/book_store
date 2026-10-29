@@ -7,8 +7,10 @@ class TextformWedgit extends StatefulWidget {
   final String hintT;
    final bool isPass;
    final String ?Function(String?)? validator;
-   final TextEditingController controller;
-   const TextformWedgit({required this.controller, this.validator,this.isPass=false,required this.hintT,super.key});
+   final bool? autoFocus;
+   final TextEditingController? controller;
+   final void Function(String?)?onChanged;
+   const TextformWedgit({this.onChanged, this.autoFocus, required this.controller, this.validator,this.isPass=false,required this.hintT,super.key});
 
   @override
   State<TextformWedgit> createState() => _TextformWedgitState();
@@ -20,8 +22,10 @@ class _TextformWedgitState extends State<TextformWedgit> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      autofocus: widget.autoFocus??false,
       controller: widget.controller,
       validator: widget.validator,
+      onChanged: widget.onChanged,
       onTapOutside: (v){
         FocusScope.of(context).unfocus();
       },

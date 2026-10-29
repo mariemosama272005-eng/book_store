@@ -17,4 +17,18 @@ if(response is BookModel){
 }
 
   }
+
+
+search(String text)async{
+  emit(SearchLoading());
+  final data =await HomeRepo.search(text);
+  if(data is List<Products>){
+    emit(SearchSuccess(data));
+  }
+  else{
+    emit(SearchError());
+  }
+
+}
+
 }

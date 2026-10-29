@@ -8,7 +8,8 @@ class AuthRepo {
 
    static Future<bool> Login({required String email,required String password})async{
         try {
-         final response=await DioFactory.dio?.post(ApiEndpoints.login,data: {
+         final response=await DioFactory.dio?.post(ApiEndpoints.login
+         ,data: {
             "email":email,
             "password":password
         });

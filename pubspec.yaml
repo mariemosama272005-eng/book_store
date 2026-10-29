@@ -41,11 +41,13 @@ dependencies:
   dio: ^5.11.1
   shared_preferences: ^2.5.6
   skeletonizer: ^3.0.0
+  
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-
+  build_runner: ^2.15.1
+  flutter_gen_runner: ^5.15.0
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
   # activated in the `analysis_options.yaml` file located at the root of your

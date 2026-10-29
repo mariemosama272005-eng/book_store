@@ -11,3 +11,11 @@ final class getbestsellerSuccess extends HomeState {
 
 getbestsellerSuccess(this.products);
 }
+
+final class SearchInitial extends HomeState {}
+final class SearchLoading extends HomeState {}
+final class SearchError extends HomeState {}
+final class SearchSuccess extends HomeState {
+  final List<Products>?products;
+  SearchSuccess(this.products);
+}
