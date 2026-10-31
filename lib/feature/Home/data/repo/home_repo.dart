@@ -1,6 +1,7 @@
 import 'package:bookia/core/networking/api_endPoints.dart';
 import 'package:bookia/core/networking/dio_factory.dart';
 import 'package:bookia/feature/Home/data/models/book_model.dart';
+import 'package:bookia/feature/Home/data/models/sliderModel.dart';
 import 'package:dio/dio.dart';
 
 class HomeRepo {
@@ -39,4 +40,18 @@ return book.data?.products;
 }
 
  } 
+ static Future<SliderModel?>slider()async{
+  try {
+     final response=await DioFactory.dio?.get(ApiEndpoints.slider);
+     if(response?.statusCode==200){
+      SliderModel slider=SliderModel.fromJson(response?.data);
+      return slider;
+     }else{
+      return null;
+     }
+    
+  } catch (e) {
+     return null;
+  }
+ }
 }

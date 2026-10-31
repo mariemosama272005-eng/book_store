@@ -3,6 +3,7 @@ import 'package:bookia/feature/Home/data/models/book_model.dart';
 import 'package:bookia/feature/Home/presentation/cubit/cubit/home_cubit.dart';
 import 'package:bookia/feature/Home/presentation/ui/wedgit/bookItem_wedgit.dart';
 import 'package:bookia/feature/Home/presentation/ui/wedgit/home_appBar_wedgit.dart';
+import 'package:bookia/feature/Home/presentation/ui/wedgit/slider_wedgit.dart';
 import 'package:bookia/gen/assets.gen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -22,6 +23,25 @@ class HomeScreen extends StatelessWidget {
             children: [
              HomeAppBarWedgit(),
             25.verticalSpace,
+            BlocProvider(
+        create: (context) => HomeCubit()..slider(),
+        child: BlocBuilder<HomeCubit, HomeState>(
+          builder: (context, state) {
+            if (state is SliderLoading) {
+              return const Center(
+                child: CircularProgressIndicator(color: AppColors.mainColor),
+              );
+            } else if (state is SliderSuccess) {
+              final sliders = state.slider;
+              return Center(
+                child: CustomSliderWidget(slidersList: sliders??[]),
+              );
+            }else{
+              return Center(child: Text("Error"));
+            }
+          
+            }
+            )),
                  BlocBuilder<HomeCubit, HomeState>(
                   builder: (context, state) {
                     if (state is getbestsellerLoading) {

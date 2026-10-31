@@ -41,6 +41,8 @@ dependencies:
   dio: ^5.11.1
   shared_preferences: ^2.5.6
   skeletonizer: ^3.0.0
+  smooth_page_indicator: ^3.0.0
+  carousel_slider: ^5.1.2
   
 
 dev_dependencies:
