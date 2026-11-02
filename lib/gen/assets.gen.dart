@@ -11,6 +11,25 @@
 
 import 'package:flutter/widgets.dart';
 
+class $AssetsIconsGen {
+  const $AssetsIconsGen();
+
+  /// File path: assets/icons/bookmark.svg
+  String get bookmark => 'assets/icons/bookmark.svg';
+
+  /// File path: assets/icons/category.svg
+  String get category => 'assets/icons/category.svg';
+
+  /// File path: assets/icons/home.svg
+  String get home => 'assets/icons/home.svg';
+
+  /// File path: assets/icons/profile.svg
+  String get profile => 'assets/icons/profile.svg';
+
+  /// List of all assets
+  List<String> get values => [bookmark, category, home, profile];
+}
+
 class $AssetsImagesGen {
   const $AssetsImagesGen();
 
@@ -42,6 +61,7 @@ class $AssetsTranslationsGen {
 }
 
 abstract final class Assets {
+  static const $AssetsIconsGen icons = $AssetsIconsGen();
   static const $AssetsImagesGen images = $AssetsImagesGen();
   static const $AssetsTranslationsGen translations = $AssetsTranslationsGen();
 }

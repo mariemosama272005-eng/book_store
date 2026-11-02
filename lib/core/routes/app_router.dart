@@ -8,6 +8,7 @@ import 'package:bookia/feature/auth/presentation/ui/login_screen.dart';
 import 'package:bookia/feature/auth/presentation/ui/register_screen.dart';
 import 'package:bookia/feature/book_details/presentation/cubit/cubit/bookdetailscubit_cubit.dart';
 import 'package:bookia/feature/book_details/presentation/ui/bookDetailsScreen.dart';
+import 'package:bookia/feature/buttomNavBar/presentation/ui/buttomNavBar.dart';
 import 'package:bookia/feature/welcome/presentation/ui/welcome_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -50,15 +51,7 @@ class AppRouter {
           ),
         );
 
-      case AppRoutes.homeScreen:
-        return MaterialPageRoute(
-          builder: (_) {
-            return BlocProvider(
-              create: (context) => HomeCubit()..getbestsellerBooks(),
-              child: HomeScreen(),
-            );
-          },
-        );
+      
 
       case AppRoutes.searchScreen:
         return MaterialPageRoute(
@@ -67,6 +60,8 @@ class AppRouter {
             child: Searchscreen(),
           ),
         );
+          case AppRoutes.buttomNavbarScreen:
+        return MaterialPageRoute(builder: (_) => ButtomnavbarScreen());
     }
   }
 }

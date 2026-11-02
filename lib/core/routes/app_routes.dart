@@ -9,6 +9,7 @@ static const String forgetpassScreen="ForgetPasswordScreen";
 static const String homeScreen="HomeScreen";
 static const String searchScreen="SearchScreen";
 static const String bookditailsScreen="Bookdetailsscreen";
+static const String buttomNavbarScreen="ButtomNavBarscreen";
 
 
 

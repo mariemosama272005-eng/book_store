@@ -43,6 +43,7 @@ dependencies:
   skeletonizer: ^3.0.0
   smooth_page_indicator: ^3.0.0
   carousel_slider: ^5.1.2
+  flutter_svg: ^2.3.2
   
 
 dev_dependencies:
@@ -72,6 +73,7 @@ flutter:
   assets:
     - assets/images/
     - assets/translations/
+    - assets/icons/
     
 
   # An image asset can refer to one or more resolution-specific "variants", see
