@@ -1,4 +1,3 @@
-import 'dart:math';
 
 import 'package:bookia/core/routes/app_routes.dart';
 import 'package:bookia/core/shared_wedgits/mainButton_wedgit.dart';
@@ -13,7 +12,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class LoginForm extends StatefulWidget {
-
   const LoginForm({super.key});
 
   @override
@@ -21,9 +19,11 @@ class LoginForm extends StatefulWidget {
 }
 
 class _LoginFormState extends State<LoginForm> {
-  var formState = GlobalKey<FormState>();
-  var emailController=TextEditingController();
-  var passcontroller=TextEditingController();
+  final formState = GlobalKey<FormState>();
+
+  final emailController = TextEditingController();
+  final passcontroller = TextEditingController();
+
   @override
   void dispose() {
     emailController.dispose();
@@ -33,21 +33,36 @@ class _LoginFormState extends State<LoginForm> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<AuthcubitCubit,AuthcubitState>(
+    return BlocListener<AuthcubitCubit, AuthcubitState>(
       listener: (context, state) {
-        if(state is loginLoadingState){
-        showDialog(context: context,barrierDismissible: false, builder: (context)=>AlertDialog(
-          backgroundColor: Colors.transparent,
-          
-          content: Center(child: CircularProgressIndicator(color: AppColors.mainColor,)),
-        ));
-        }else if(state is LoginSuccessState){
-Navigator.pushNamed(context, AppRoutes.homeScreen);
-        }else{
-          Navigator.pop(context);
-          showDialog(context: context, builder: (context)=>AlertDialog(
-          content: Text("Error")
-          ));
+        if (state is loginLoadingState) {
+          showDialog(
+            context: context,
+            barrierDismissible: false,
+            builder: (context) {
+              return AlertDialog(
+                backgroundColor: Colors.transparent,
+                elevation: 0,
+                content: Center(
+                  child: CircularProgressIndicator(
+                    color: AppColors.mainColor,
+                  ),
+                ),
+              );
+            },
+          );
+        } else if (state is LoginSuccessState) {
+          // Close loading dialog
+          if (Navigator.canPop(context)) {
+            Navigator.pop(context);
+          }
+
+          // Go to home
+          Navigator.pushNamedAndRemoveUntil(
+            context,
+            AppRoutes.homeScreen,
+            (route) => false,
+          );
         }
       },
       child: Form(
@@ -61,12 +76,17 @@ Navigator.pushNamed(context, AppRoutes.homeScreen);
                 if (v == null || v.isEmpty) {
                   return "emailRe".tr();
                 }
+
                 if (!AppValidator.isValidEmail(v)) {
                   return "validEmail".tr();
                 }
+
+                return null;
               },
             ),
+
             15.verticalSpace,
+
             TextformWedgit(
               controller: passcontroller,
               hintT: "pass".tr(),
@@ -75,30 +95,43 @@ Navigator.pushNamed(context, AppRoutes.homeScreen);
                 if (v == null || v.isEmpty) {
                   return "passReq".tr();
                 }
+
                 if (!AppValidator.isPasswordValid(v)) {
                   return "validPass".tr();
                 }
+
+                return null;
               },
             ),
+
             Align(
               alignment: Alignment.centerRight,
               child: InkWell(
+                onTap: () {
+                  Navigator.pushNamed(
+                    context,
+                    AppRoutes.forgetpassScreen,
+                  );
+                },
                 child: Text(
                   "forgetpass".tr(),
                   style: AppTextstyle.hintTextStyle,
                 ),
-                onTap: () {
-                  Navigator.pushNamed(context, AppRoutes.forgetpassScreen);
-                },
               ),
             ),
+
             30.verticalSpace,
+
             MainbuttonWedgit(
               title: "login".tr(),
               onTap: () {
-               if(formState.currentState?.validate()??false){
-context.read<AuthcubitCubit>().login(email: emailController.text, password: passcontroller.text );
-               }
+                if (formState.currentState?.validate() ?? false) {
+                  context.read<AuthcubitCubit>().login(
+                    email: emailController.text.trim(),
+                    password: passcontroller.text,
+                  );
+                  Navigator.pushNamed(context, AppRoutes.buttomNavbarScreen);
+                }
               },
             ),
           ],

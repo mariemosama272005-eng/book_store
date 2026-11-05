@@ -1,6 +1,7 @@
 import 'package:bookia/core/theme/app_colors.dart';
 import 'package:bookia/feature/Home/presentation/cubit/cubit/home_cubit.dart';
 import 'package:bookia/feature/Home/presentation/ui/home_screen.dart';
+import 'package:bookia/feature/profile/presentation/ui/profile_screen.dart';
 import 'package:bookia/gen/assets.gen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -23,7 +24,7 @@ class _ButtomnavbarScreenState extends State<ButtomnavbarScreen> {
 
   const Center(child: Text("Bookmark Screen")),
     const Center(child: Text("Cart Screen")),       
-    const Center(child: Text("Profile Screen")),
+   const ProfileScreen(),
   ];
   @override
   Widget build(BuildContext context) {

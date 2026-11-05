@@ -1,3 +1,4 @@
+
 import 'package:bookia/core/Services/local/local_helper.dart';
 import 'package:bookia/core/networking/api_endPoints.dart';
 import 'package:bookia/core/networking/dio_factory.dart';
@@ -5,26 +6,38 @@ import 'package:bookia/core/util/app_constans.dart';
 import 'package:dio/dio.dart';
 
 class AuthRepo {
+  static Future<bool> Login({
+    required String email,
+    required String password,
+  }) async {
+    try {
+      final response = await DioFactory.dio?.post(
+        ApiEndpoints.login,
+        data: {
+          "email": email,
+          "password": password,
+        },
+      );
 
-   static Future<bool> Login({required String email,required String password})async{
-        try {
-         final response=await DioFactory.dio?.post(ApiEndpoints.login
-         ,data: {
-            "email":email,
-            "password":password
-        });
-        if(response?.statusCode==200){
-            String ?token=response?.data["data"]["token"];
-      saveToken(token);
-return true;
-        }else{
-            return false;
-        }
-        } catch (e) {
+      if (response?.statusCode == 200) {
+        final data = response?.data;
+
+        final token = data?["data"]?["token"];
+
+        if (token == null || token.toString().isEmpty) {
           return false;
         }
 
+        await saveToken(token.toString());
+
+        return true;
+      }
+
+      return false;
+    } catch (e) {
+      return false;
     }
+  }
 
   static Future<bool> Register({
     required String name,
@@ -36,7 +49,7 @@ return true;
   }) async {
     try {
       final response = await DioFactory.dio?.post(
-        ApiEndpoints.reg, 
+        ApiEndpoints.reg,
         data: {
           "name": name,
           "email": email,
@@ -46,24 +59,46 @@ return true;
           "city": city,
         },
       );
-      
-      if (response?.statusCode == 200 || response?.statusCode == 201) {
-        var userData = response?.data["data"];
-        String? token = userData["token"];
-        await saveToken(token);
-        await LocalHelper.prefs?.setString("user_name", userData["name"] ?? "");
-        await LocalHelper.prefs?.setString("user_email", userData["email"] ?? "");
+
+      if (response?.statusCode == 200 ||
+          response?.statusCode == 201) {
+        final userData = response?.data?["data"];
+
+        if (userData == null) {
+          return false;
+        }
+
+        final token = userData["token"];
+
+        if (token == null || token.toString().isEmpty) {
+          return false;
+        }
+
+        await saveToken(token.toString());
+
+        await LocalHelper.prefs?.setString(
+          "user_name",
+          userData["name"]?.toString() ?? "",
+        );
+
+        await LocalHelper.prefs?.setString(
+          "user_email",
+          userData["email"]?.toString() ?? "",
+        );
 
         return true;
-      } else {
-        return false;
       }
+
+      return false;
     } catch (e) {
       return false;
     }
   }
 
-  static saveToken(String? token) async {
-    await LocalHelper.prefs?.setString(AppConstans.userToken, token!);
+  static Future<void> saveToken(String token) async {
+    await LocalHelper.prefs?.setString(
+      AppConstans.userToken,
+      token,
+    );
   }
 }
