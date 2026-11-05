@@ -1,4 +1,5 @@
 
+import 'package:bookia/core/networking/dio_factory.dart';
 import 'package:bookia/core/routes/app_routes.dart';
 import 'package:bookia/core/shared_wedgits/mainButton_wedgit.dart';
 import 'package:bookia/core/shared_wedgits/textForm_wedgit.dart';
@@ -52,17 +53,12 @@ class _LoginFormState extends State<LoginForm> {
             },
           );
         } else if (state is LoginSuccessState) {
-          // Close loading dialog
-          if (Navigator.canPop(context)) {
+       DioFactory.init();
+        
             Navigator.pop(context);
-          }
+          
 
-          // Go to home
-          Navigator.pushNamedAndRemoveUntil(
-            context,
-            AppRoutes.homeScreen,
-            (route) => false,
-          );
+          Navigator.pushNamed(context, AppRoutes.buttomNavbarScreen);
         }
       },
       child: Form(
@@ -130,7 +126,7 @@ class _LoginFormState extends State<LoginForm> {
                     email: emailController.text.trim(),
                     password: passcontroller.text,
                   );
-                  Navigator.pushNamed(context, AppRoutes.buttomNavbarScreen);
+               
                 }
               },
             ),

@@ -44,6 +44,8 @@ dependencies:
   smooth_page_indicator: ^3.0.0
   carousel_slider: ^5.1.2
   flutter_svg: ^2.3.2
+  dio_pretty_logger: ^2.0.0
+  pretty_dio_logger: ^1.4.0
   
 
 dev_dependencies:

@@ -13,57 +13,36 @@ class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        child: SingleChildScrollView(
-          padding: EdgeInsets.all(22.w),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const AppbarWedgit(),
+      body: Padding(
+        padding: const EdgeInsets.all(22),
+            child: Column(
+           
+          children: [
+            AppbarWedgit(),
+            Text("welcome".tr(),style: AppTextstyle.font30regular,),
+            32.verticalSpace,
+            LoginForm(),
+          Align(
+            alignment: AlignmentGeometry.bottomEnd,
+            child: Row(
+              children: [
+                Text("noAccount".tr(),style:AppTextstyle.subTextstyle,),
+                InkWell(
+                  onTap: () {
+                    Navigator.pushNamed(context, AppRoutes.registerScreen);
 
-              SizedBox(height: 20.h),
-
-              Text(
-                "welcome".tr(),
-                style: AppTextstyle.font30regular,
-              ),
-
-              32.verticalSpace,
-
-              const LoginForm(),
-
-              SizedBox(height: 30.h),
-
-              Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Text(
-                    "noAccount".tr(),
-                    style: AppTextstyle.subTextstyle,
-                  ),
-
-                  SizedBox(width: 5.w),
-
-                  InkWell(
-                    onTap: () {
-                      Navigator.pushNamed(
-                        context,
-                        AppRoutes.registerScreen,
-                      );
-                    },
-                    child: Text(
-                      "regNow".tr(),
-                      style: AppTextstyle.subTextstyle.copyWith(
-                        color: AppColors.mainColor,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ],
-          ),
+                  },
+                  child: Text("regNow".tr(),style: AppTextstyle.subTextstyle.copyWith(color: AppColors.mainColor),),
+                )
+              ],
+            ),
+          )
+            
+          ],
         ),
       ),
+      
+      
     );
   }
 }

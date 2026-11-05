@@ -56,7 +56,7 @@ class _RegisterFormState extends State<RegisterForm> {
           );
         } else if (state is RegisterSuccessState) { 
           Navigator.pop(context); 
-          Navigator.pushReplacementNamed(context, AppRoutes.homeScreen);
+          Navigator.pushReplacementNamed(context, AppRoutes.buttomNavbarScreen);
         } else if (state is RegisterErrorState) {
           Navigator.pop(context); 
           showDialog(
