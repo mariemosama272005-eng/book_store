@@ -32,6 +32,10 @@
 # Book Details Screen 
 <img width="1194" height="1758" alt="image" src="https://github.com/user-attachments/assets/b6430143-f30b-4fe2-9933-73b68b60b897" />
 
+# Profile screen
+<img width="1183" height="1797" alt="image" src="https://github.com/user-attachments/assets/e388b370-09b7-4b45-b90c-1327487f5f3b" />
+
+
 
 
 
