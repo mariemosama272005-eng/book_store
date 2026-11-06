@@ -43,4 +43,17 @@ slider()async{
   }
 }
 
+
+
+addToCart(int productId)async{
+  emit(addToCartLoading());
+  final res =await HomeRepo.addToCart(productId);
+  if(res){
+    emit(addToCartSuccess());
+  }
+  else{
+    emit(addToCartError());
+  }
+}
+
 }

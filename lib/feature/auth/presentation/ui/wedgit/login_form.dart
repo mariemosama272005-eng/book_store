@@ -55,7 +55,7 @@ class _LoginFormState extends State<LoginForm> {
         } else if (state is LoginSuccessState) {
        DioFactory.init();
         
-            Navigator.pop(context);
+            //Navigator.pop(context);
           
 
           Navigator.pushNamed(context, AppRoutes.buttomNavbarScreen);

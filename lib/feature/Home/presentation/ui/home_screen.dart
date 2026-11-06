@@ -4,7 +4,6 @@ import 'package:bookia/feature/Home/presentation/cubit/cubit/home_cubit.dart';
 import 'package:bookia/feature/Home/presentation/ui/wedgit/bookItem_wedgit.dart';
 import 'package:bookia/feature/Home/presentation/ui/wedgit/home_appBar_wedgit.dart';
 import 'package:bookia/feature/Home/presentation/ui/wedgit/slider_wedgit.dart';
-import 'package:bookia/gen/assets.gen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -15,77 +14,133 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
+    return BlocProvider(
+      create: (context) => HomeCubit()
+        ..slider()
+        ..getbestsellerBooks(),
+
+      child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16),
+
         child: SafeArea(
           child: Column(
             children: [
-             HomeAppBarWedgit(),
-            25.verticalSpace,
-            BlocProvider(
-        create: (context) => HomeCubit()..slider(),
-        child: BlocBuilder<HomeCubit, HomeState>(
-          builder: (context, state) {
-            if (state is SliderLoading) {
-              return const Center(
-                child: CircularProgressIndicator(color: AppColors.mainColor),
-              );
-            } else if (state is SliderSuccess) {
-              final sliders = state.slider;
-              return Center(
-                child: CustomSliderWidget(slidersList: sliders??[]),
-              );
-            }else{
-              return Center(child: Text("Error"));
-            }
-          
-            }
-            )),
-                 BlocBuilder<HomeCubit, HomeState>(
+              HomeAppBarWedgit(),
+
+              25.verticalSpace,
+              BlocListener<HomeCubit, HomeState>(
+                listener: (context, state) {
+                  if (state is addToCartLoading) {
+                    showDialog(
+                      context: context,
+                      builder: (context) =>
+                          Center(child: CircularProgressIndicator(color: AppColors.mainColor)),
+                    );
+                  } else if (state is addToCartSuccess) {
+                    Navigator.pop(context);
+                    showDialog(
+                      context: context,
+                      builder: (context) =>
+                          AlertDialog(title: Text("Product added to cart successfully")),
+                    );
+                  } else {
+                    showDialog(
+                      context: context,
+                      builder: (context) => AlertDialog(title: Text("Error")),
+                    );
+                  }
+                },
+                  child:
+                  SizedBox.shrink(),
+              
+              ),
+
+              BlocBuilder<HomeCubit, HomeState>(
+                buildWhen: (previous, current) =>
+                    current is SliderLoading ||
+                    current is SliderError ||
+                    current is SliderSuccess,
+
+                builder: (context, state) {
+                  if (state is SliderLoading) {
+                    return const Center(
+                      child: CircularProgressIndicator(
+                        color: AppColors.mainColor,
+                      ),
+                    );
+                  }
+
+                  if (state is SliderSuccess) {
+                    return CustomSliderWidget(slidersList: state.slider ?? []);
+                  }
+
+                  return const Center(child: Text("Error"));
+                },
+              ),
+
+              20.verticalSpace,
+
+              Expanded(
+                child: BlocBuilder<HomeCubit, HomeState>(
+                  buildWhen: (previous, current) =>
+                      current is getbestsellerError ||
+                      current is getbestsellerSuccess ||
+                      current is getbestsellerLoading,
+
                   builder: (context, state) {
                     if (state is getbestsellerLoading) {
-                      return Center(
-                        child: Expanded(
-                        child: Skeletonizer(
-                          enabled: true,
-                         
-                          child: GridView.builder(
-                            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      return Skeletonizer(
+                        enabled: true,
+
+                        child: GridView.builder(
+                          gridDelegate:
+                              const SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: 2,
+                                childAspectRatio: 0.8,
+                              ),
+
+                          itemCount: 4,
+
+                          itemBuilder: (context, index) {
+                            return BookitemWedgit(
+                              prodcut: Products(
+                                name: "test",
+                                price: "333",
+                                image:
+                                    "https://image-processor-storage.s3.us-west-2.amazonaws.com/images/3cf61c1011912a2173ea4dfa260f1108/halo-of-neon-ring-illuminated-in-the-stunning-landscape-of-yosemite.jpg",
+                              ),
+                            );
+                          },
+                        ),
+                      );
+                    }
+
+                    if (state is getbestsellerSuccess) {
+                      final products = state.products ?? [];
+
+                      return GridView.builder(
+                        gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(
                               crossAxisCount: 2,
                               childAspectRatio: 0.8,
                             ),
-                            itemBuilder: (context, index) => BookitemWedgit(
-                              prodcut:Products(name: "test",
-                              price: "333",
-                              image: "https://image-processor-storage.s3.us-west-2.amazonaws.com/images/3cf61c1011912a2173ea4dfa260f1108/halo-of-neon-ring-illuminated-in-the-stunning-landscape-of-yosemite.jpg",
-                              )
-                             ),
-                            itemCount: 4,
-                          ),
-                        ),
-                      )
+
+                        itemCount: products.length,
+
+                        itemBuilder: (context, index) {
+                          return BookitemWedgit(prodcut: products[index]);
+                        },
                       );
-                    } else if (state is getbestsellerSuccess) {
-                      return Expanded(
-                        child: GridView.builder(
-                          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 2,
-                            childAspectRatio: 0.8,
-                          ),
-                          itemBuilder: (context, index) => BookitemWedgit(prodcut: state.products?[index],),
-                          itemCount: state.products?.length,
-                        ),
-                      );
-                    } else {
-                      return const Center(child: Text("Error"));
                     }
+
+                    return const Center(child: Text("Error"));
                   },
                 ),
-              
+              ),
             ],
           ),
         ),
-      
+      ),
     );
   }
 }

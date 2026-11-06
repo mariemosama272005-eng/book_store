@@ -54,4 +54,20 @@ return book.data?.products;
      return null;
   }
  }
+ static addToCart(int productId)async{
+  try {
+     final response=await DioFactory.dio?.post(ApiEndpoints.addToCart,
+     data: {
+      "product_id":productId
+     }
+     );
+     if (response?.statusCode==201) {
+       return true;
+     }else{
+      return false;
+     }
+  } catch (e) {
+    return false; 
+  }
+ }
 }

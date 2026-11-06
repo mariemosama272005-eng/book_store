@@ -27,3 +27,10 @@ final class SliderSuccess extends HomeState {
   final List<Sliders>?slider;
   SliderSuccess(this.slider);
 }
+
+final class addToCartIntial extends HomeState {}
+final class addToCartLoading extends HomeState {}
+final class addToCartError extends HomeState {}
+final class addToCartSuccess extends HomeState {
+
+}
