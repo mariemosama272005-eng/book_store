@@ -12,5 +12,4 @@ class ApiEndpoints {
   static const String removefromcart="remove-from-cart";
 
 
-  
 }

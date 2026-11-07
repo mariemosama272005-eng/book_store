@@ -1,33 +1,42 @@
-
+import 'package:bookia/core/Services/local/local_helper.dart';
 import 'package:bookia/core/networking/api_endPoints.dart';
 import 'package:bookia/core/networking/dio_factory.dart';
+import 'package:bookia/core/util/app_constans.dart';
 import 'package:bookia/feature/cart/data/model/cart_model.dart';
+import 'package:dio/dio.dart';
 
 class CartRepo {
+  static Options _getAuthOptions() {
+    final token = LocalHelper.prefs?.getString(AppConstans.userToken) ??
+        LocalHelper.prefs?.get(AppConstans.userToken)?.toString();
+
+    return Options(
+      headers: {
+        if (token != null && token.isNotEmpty)
+          'Authorization': 'Bearer $token',
+      },
+    );
+  }
+
   // =========================
   // SHOW CART
   // =========================
-
   static Future<Data?> showCart() async {
     try {
       final response = await DioFactory.dio?.get(
         ApiEndpoints.showCart,
+        options: _getAuthOptions(),
       );
 
-      print('SHOW CART STATUS: ${response?.statusCode}');
-      print('SHOW CART RESPONSE: ${response?.data}');
-
       if (response?.statusCode == 200) {
-        final CartModel cartModel = CartModel.fromJson(
-          response!.data,
-        );
-
-        return cartModel.data;
+        if (response?.data != null && response!.data is Map<String, dynamic>) {
+          final CartModel cartModel = CartModel.fromJson(response.data);
+          return cartModel.data ?? Data(cartItems: [], total: "0.00");
+        }
       }
 
       return null;
     } catch (e) {
-      print('SHOW CART ERROR: $e');
       return null;
     }
   }
@@ -35,7 +44,6 @@ class CartRepo {
   // =========================
   // UPDATE CART
   // =========================
-
   static Future<Data?> updateCart({
     required int itemId,
     required int quantity,
@@ -47,23 +55,18 @@ class CartRepo {
           'cart_item_id': itemId,
           'quantity': quantity,
         },
+        options: _getAuthOptions(),
       );
 
-      print('UPDATE CART STATUS: ${response?.statusCode}');
-      print('UPDATE CART RESPONSE: ${response?.data}');
-
-      if (response?.statusCode == 200 ||
-          response?.statusCode == 201) {
-        final CartModel cartModel = CartModel.fromJson(
-          response!.data,
-        );
-
-        return cartModel.data;
+      if (response?.statusCode == 200 || response?.statusCode == 201) {
+        if (response?.data != null && response!.data is Map<String, dynamic>) {
+          final CartModel cartModel = CartModel.fromJson(response.data);
+          return cartModel.data ?? Data(cartItems: [], total: "0.00");
+        }
       }
 
       return null;
     } catch (e) {
-      print('UPDATE CART ERROR: $e');
       return null;
     }
   }
@@ -71,7 +74,6 @@ class CartRepo {
   // =========================
   // REMOVE FROM CART
   // =========================
-
   static Future<Data?> removeFromCart({
     required int itemId,
   }) async {
@@ -81,23 +83,18 @@ class CartRepo {
         data: {
           'cart_item_id': itemId,
         },
+        options: _getAuthOptions(),
       );
 
-      print('REMOVE CART STATUS: ${response?.statusCode}');
-      print('REMOVE CART RESPONSE: ${response?.data}');
-
-      if (response?.statusCode == 200 ||
-          response?.statusCode == 201) {
-        final CartModel cartModel = CartModel.fromJson(
-          response!.data,
-        );
-
-        return cartModel.data;
+      if (response?.statusCode == 200 || response?.statusCode == 201) {
+        if (response?.data != null && response!.data is Map<String, dynamic>) {
+          final CartModel cartModel = CartModel.fromJson(response.data);
+          return cartModel.data ?? Data(cartItems: [], total: "0.00");
+        }
       }
 
       return null;
     } catch (e) {
-      print('REMOVE CART ERROR: $e');
       return null;
     }
   }

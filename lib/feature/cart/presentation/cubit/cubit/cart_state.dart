@@ -6,16 +6,18 @@ sealed class CartState {}
 // =========================
 // INITIAL
 // =========================
-
 final class CartInitial extends CartState {}
 
 // =========================
 // SHOW CART
 // =========================
-
 final class CartLoading extends CartState {}
 
-final class CartError extends CartState {}
+final class CartError extends CartState {
+  final String? message;
+
+  CartError([this.message]);
+}
 
 final class CartSuccess extends CartState {
   final Data cartData;
@@ -26,11 +28,11 @@ final class CartSuccess extends CartState {
 // =========================
 // UPDATE CART
 // =========================
-
 final class CartUpdateLoading extends CartState {
   final Data cartData;
+  final int? updatingItemId;
 
-  CartUpdateLoading(this.cartData);
+  CartUpdateLoading(this.cartData, {this.updatingItemId});
 }
 
 final class CartUpdateSuccess extends CartState {
@@ -41,18 +43,19 @@ final class CartUpdateSuccess extends CartState {
 
 final class CartUpdateError extends CartState {
   final Data cartData;
+  final String? message;
 
-  CartUpdateError(this.cartData);
+  CartUpdateError(this.cartData, [this.message]);
 }
 
 // =========================
 // REMOVE CART
 // =========================
-
 final class CartRemoveLoading extends CartState {
   final Data cartData;
+  final int? removingItemId;
 
-  CartRemoveLoading(this.cartData);
+  CartRemoveLoading(this.cartData, {this.removingItemId});
 }
 
 final class CartRemoveSuccess extends CartState {
@@ -63,6 +66,7 @@ final class CartRemoveSuccess extends CartState {
 
 final class CartRemoveError extends CartState {
   final Data cartData;
+  final String? message;
 
-  CartRemoveError(this.cartData);
+  CartRemoveError(this.cartData, [this.message]);
 }

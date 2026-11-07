@@ -75,7 +75,10 @@ class BookitemWedgit extends StatelessWidget {
                   padding: EdgeInsets.zero,
                   constraints: const BoxConstraints(),
                   onPressed: () {
-                    context.read<HomeCubit>().addToCart(prodcut?.id ?? 0);
+                    final id = prodcut?.id;
+                    if (id != null && id > 0) {
+                      context.read<HomeCubit>().addToCart(id);
+                    }
                   },
                   icon: Icon(Icons.shopping_cart, size: 22.r),
                 ),

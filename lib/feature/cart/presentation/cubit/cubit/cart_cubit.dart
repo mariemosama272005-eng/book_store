@@ -11,7 +11,6 @@ class CartCubit extends Cubit<CartState> {
   // =========================
   // SHOW CART
   // =========================
-
   Future<void> showCart() async {
     emit(CartLoading());
 
@@ -20,14 +19,13 @@ class CartCubit extends Cubit<CartState> {
     if (res != null) {
       emit(CartSuccess(res));
     } else {
-      emit(CartError());
+      emit(CartError('Failed to load cart. Please try again.'));
     }
   }
 
   // =========================
   // UPDATE CART
   // =========================
-
   Future<void> updateCart({
     required int itemId,
     required int quantity,
@@ -42,7 +40,7 @@ class CartCubit extends Cubit<CartState> {
       return;
     }
 
-    emit(CartUpdateLoading(currentData));
+    emit(CartUpdateLoading(currentData, updatingItemId: itemId));
 
     final res = await CartRepo.updateCart(
       itemId: itemId,
@@ -52,14 +50,13 @@ class CartCubit extends Cubit<CartState> {
     if (res != null) {
       emit(CartUpdateSuccess(res));
     } else {
-      emit(CartUpdateError(currentData));
+      emit(CartUpdateError(currentData, 'Failed to update item quantity'));
     }
   }
 
   // =========================
   // REMOVE FROM CART
   // =========================
-
   Future<void> removeFromCart({
     required int itemId,
   }) async {
@@ -69,7 +66,7 @@ class CartCubit extends Cubit<CartState> {
       return;
     }
 
-    emit(CartRemoveLoading(currentData));
+    emit(CartRemoveLoading(currentData, removingItemId: itemId));
 
     final res = await CartRepo.removeFromCart(
       itemId: itemId,
@@ -78,14 +75,13 @@ class CartCubit extends Cubit<CartState> {
     if (res != null) {
       emit(CartRemoveSuccess(res));
     } else {
-      emit(CartRemoveError(currentData));
+      emit(CartRemoveError(currentData, 'Failed to remove item from cart'));
     }
   }
 
   // =========================
   // GET CURRENT CART DATA
   // =========================
-
   Data? _getCurrentCartData() {
     final currentState = state;
 

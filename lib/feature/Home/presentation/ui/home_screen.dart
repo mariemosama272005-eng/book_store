@@ -4,6 +4,7 @@ import 'package:bookia/feature/Home/presentation/cubit/cubit/home_cubit.dart';
 import 'package:bookia/feature/Home/presentation/ui/wedgit/bookItem_wedgit.dart';
 import 'package:bookia/feature/Home/presentation/ui/wedgit/home_appBar_wedgit.dart';
 import 'package:bookia/feature/Home/presentation/ui/wedgit/slider_wedgit.dart';
+import 'package:bookia/feature/cart/presentation/cubit/cubit/cart_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -18,41 +19,55 @@ class HomeScreen extends StatelessWidget {
       create: (context) => HomeCubit()
         ..slider()
         ..getbestsellerBooks(),
-
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16),
-
         child: SafeArea(
           child: Column(
             children: [
-              HomeAppBarWedgit(),
+              const HomeAppBarWedgit(),
 
               25.verticalSpace,
+
               BlocListener<HomeCubit, HomeState>(
+                listenWhen: (previous, current) =>
+                    current is addToCartLoading ||
+                    current is addToCartSuccess ||
+                    current is addToCartError,
                 listener: (context, state) {
                   if (state is addToCartLoading) {
                     showDialog(
                       context: context,
-                      builder: (context) =>
-                          Center(child: CircularProgressIndicator(color: AppColors.mainColor)),
+                      barrierDismissible: false,
+                      builder: (context) => const Center(
+                        child: CircularProgressIndicator(
+                          color: AppColors.mainColor,
+                        ),
+                      ),
                     );
                   } else if (state is addToCartSuccess) {
-                    Navigator.pop(context);
-                    showDialog(
-                      context: context,
-                      builder: (context) =>
-                          AlertDialog(title: Text("Product added to cart successfully")),
+                    Navigator.of(context, rootNavigator: true).pop();
+                    try {
+                      context.read<CartCubit>().showCart();
+                    } catch (_) {}
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text("Product added to cart successfully"),
+                        backgroundColor: Colors.green,
+                        duration: Duration(seconds: 2),
+                      ),
                     );
-                  } else {
-                    showDialog(
-                      context: context,
-                      builder: (context) => AlertDialog(title: Text("Error")),
+                  } else if (state is addToCartError) {
+                    Navigator.of(context, rootNavigator: true).pop();
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text("Failed to add product to cart"),
+                        backgroundColor: Colors.red,
+                        duration: Duration(seconds: 2),
+                      ),
                     );
                   }
                 },
-                  child:
-                  SizedBox.shrink(),
-              
+                child: const SizedBox.shrink(),
               ),
 
               BlocBuilder<HomeCubit, HomeState>(
@@ -60,7 +75,6 @@ class HomeScreen extends StatelessWidget {
                     current is SliderLoading ||
                     current is SliderError ||
                     current is SliderSuccess,
-
                 builder: (context, state) {
                   if (state is SliderLoading) {
                     return const Center(
@@ -74,7 +88,7 @@ class HomeScreen extends StatelessWidget {
                     return CustomSliderWidget(slidersList: state.slider ?? []);
                   }
 
-                  return const Center(child: Text("Error"));
+                  return const Center(child: Text("Error loading sliders"));
                 },
               ),
 
@@ -86,21 +100,17 @@ class HomeScreen extends StatelessWidget {
                       current is getbestsellerError ||
                       current is getbestsellerSuccess ||
                       current is getbestsellerLoading,
-
                   builder: (context, state) {
                     if (state is getbestsellerLoading) {
                       return Skeletonizer(
                         enabled: true,
-
                         child: GridView.builder(
                           gridDelegate:
                               const SliverGridDelegateWithFixedCrossAxisCount(
-                                crossAxisCount: 2,
-                                childAspectRatio: 0.8,
-                              ),
-
+                            crossAxisCount: 2,
+                            childAspectRatio: 0.8,
+                          ),
                           itemCount: 4,
-
                           itemBuilder: (context, index) {
                             return BookitemWedgit(
                               prodcut: Products(
@@ -121,19 +131,19 @@ class HomeScreen extends StatelessWidget {
                       return GridView.builder(
                         gridDelegate:
                             const SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 2,
-                              childAspectRatio: 0.8,
-                            ),
-
+                          crossAxisCount: 2,
+                          childAspectRatio: 0.8,
+                        ),
                         itemCount: products.length,
-
                         itemBuilder: (context, index) {
                           return BookitemWedgit(prodcut: products[index]);
                         },
                       );
                     }
 
-                    return const Center(child: Text("Error"));
+                    return const Center(
+                      child: Text("Error loading bestseller books"),
+                    );
                   },
                 ),
               ),

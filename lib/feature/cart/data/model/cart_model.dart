@@ -1,28 +1,28 @@
 class CartModel {
   Data? data;
   String? message;
-
   int? status;
 
   CartModel({this.data, this.message, this.status});
 
   CartModel.fromJson(Map<String, dynamic> json) {
-    data = json['data'] != null ? new Data.fromJson(json['data']) : null;
-    message = json['message'];
-   
-    
-    status = json['status'];
+    if (json['data'] != null && json['data'] is Map<String, dynamic>) {
+      data = Data.fromJson(json['data'] as Map<String, dynamic>);
+    } else {
+      data = null;
+    }
+    message = json['message']?.toString();
+    status = int.tryParse(json['status']?.toString() ?? '');
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this.data != null) {
-      data['data'] = this.data!.toJson();
+    final Map<String, dynamic> json = <String, dynamic>{};
+    if (data != null) {
+      json['data'] = data!.toJson();
     }
-    data['message'] = this.message;
-    
-    data['status'] = this.status;
-    return data;
+    json['message'] = message;
+    json['status'] = status;
+    return json;
   }
 }
 
@@ -35,28 +35,36 @@ class Data {
   Data({this.id, this.user, this.total, this.cartItems});
 
   Data.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    user = json['user'] != null ? new User.fromJson(json['user']) : null;
-    total = json['total'];
-    if (json['cart_items'] != null) {
+    id = int.tryParse(json['id']?.toString() ?? '');
+    if (json['user'] != null && json['user'] is Map<String, dynamic>) {
+      user = User.fromJson(json['user'] as Map<String, dynamic>);
+    } else {
+      user = null;
+    }
+    total = json['total']?.toString();
+    if (json['cart_items'] != null && json['cart_items'] is List) {
       cartItems = <CartItems>[];
-      json['cart_items'].forEach((v) {
-        cartItems!.add(new CartItems.fromJson(v));
-      });
+      for (final item in (json['cart_items'] as List)) {
+        if (item is Map<String, dynamic>) {
+          cartItems!.add(CartItems.fromJson(item));
+        }
+      }
+    } else {
+      cartItems = [];
     }
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    if (this.user != null) {
-      data['user'] = this.user!.toJson();
+    final Map<String, dynamic> json = <String, dynamic>{};
+    json['id'] = id;
+    if (user != null) {
+      json['user'] = user!.toJson();
     }
-    data['total'] = this.total;
-    if (this.cartItems != null) {
-      data['cart_items'] = this.cartItems!.map((v) => v.toJson()).toList();
+    json['total'] = total;
+    if (cartItems != null) {
+      json['cart_items'] = cartItems!.map((v) => v.toJson()).toList();
     }
-    return data;
+    return json;
   }
 }
 
@@ -67,15 +75,15 @@ class User {
   User({this.userId, this.userName});
 
   User.fromJson(Map<String, dynamic> json) {
-    userId = json['user_id'];
-    userName = json['user_name'];
+    userId = int.tryParse(json['user_id']?.toString() ?? '');
+    userName = json['user_name']?.toString();
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['user_id'] = this.userId;
-    data['user_name'] = this.userName;
-    return data;
+    final Map<String, dynamic> json = <String, dynamic>{};
+    json['user_id'] = userId;
+    json['user_name'] = userName;
+    return json;
   }
 }
 
@@ -91,44 +99,48 @@ class CartItems {
   int? itemQuantity;
   double? itemTotal;
 
-  CartItems(
-      {this.itemId,
-      this.itemProductId,
-      this.itemProductName,
-      this.itemProductImage,
-      this.itemProductPrice,
-      this.itemProductDiscount,
-      this.itemProductPriceAfterDiscount,
-      this.itemProductStock,
-      this.itemQuantity,
-      this.itemTotal});
+  CartItems({
+    this.itemId,
+    this.itemProductId,
+    this.itemProductName,
+    this.itemProductImage,
+    this.itemProductPrice,
+    this.itemProductDiscount,
+    this.itemProductPriceAfterDiscount,
+    this.itemProductStock,
+    this.itemQuantity,
+    this.itemTotal,
+  });
 
   CartItems.fromJson(Map<String, dynamic> json) {
-    itemId = json['item_id'];
-    itemProductId = json['item_product_id'];
-    itemProductName = json['item_product_name'];
-    itemProductImage = json['item_product_image'];
-    itemProductPrice = json['item_product_price'];
-    itemProductDiscount = json['item_product_discount'];
-    itemProductPriceAfterDiscount = json['item_product_price_after_discount'];
-    itemProductStock = json['item_product_stock'];
-    itemQuantity = json['item_quantity'];
-    itemTotal = json['item_total'];
+    itemId = int.tryParse(json['item_id']?.toString() ?? '');
+    itemProductId = int.tryParse(json['item_product_id']?.toString() ?? '');
+    itemProductName = json['item_product_name']?.toString();
+    itemProductImage = json['item_product_image']?.toString();
+    itemProductPrice = json['item_product_price']?.toString();
+    itemProductDiscount =
+        int.tryParse(json['item_product_discount']?.toString() ?? '');
+    itemProductPriceAfterDiscount = double.tryParse(
+      json['item_product_price_after_discount']?.toString() ?? '',
+    );
+    itemProductStock =
+        int.tryParse(json['item_product_stock']?.toString() ?? '');
+    itemQuantity = int.tryParse(json['item_quantity']?.toString() ?? '');
+    itemTotal = double.tryParse(json['item_total']?.toString() ?? '');
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['item_id'] = this.itemId;
-    data['item_product_id'] = this.itemProductId;
-    data['item_product_name'] = this.itemProductName;
-    data['item_product_image'] = this.itemProductImage;
-    data['item_product_price'] = this.itemProductPrice;
-    data['item_product_discount'] = this.itemProductDiscount;
-    data['item_product_price_after_discount'] =
-        this.itemProductPriceAfterDiscount;
-    data['item_product_stock'] = this.itemProductStock;
-    data['item_quantity'] = this.itemQuantity;
-    data['item_total'] = this.itemTotal;
-    return data;
+    final Map<String, dynamic> json = <String, dynamic>{};
+    json['item_id'] = itemId;
+    json['item_product_id'] = itemProductId;
+    json['item_product_name'] = itemProductName;
+    json['item_product_image'] = itemProductImage;
+    json['item_product_price'] = itemProductPrice;
+    json['item_product_discount'] = itemProductDiscount;
+    json['item_product_price_after_discount'] = itemProductPriceAfterDiscount;
+    json['item_product_stock'] = itemProductStock;
+    json['item_quantity'] = itemQuantity;
+    json['item_total'] = itemTotal;
+    return json;
   }
 }
