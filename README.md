@@ -35,6 +35,9 @@
 # Profile screen
 <img width="1183" height="1797" alt="image" src="https://github.com/user-attachments/assets/e388b370-09b7-4b45-b90c-1327487f5f3b" />
 
+# cart Screen
+<img width="1238" height="1785" alt="image" src="https://github.com/user-attachments/assets/5f80df54-4e94-4824-b5a3-86b94400298c" />
+
 
 
 
