@@ -6,7 +6,10 @@ class ApiEndpoints {
   static const String slider="sliders";
   static const String ditails="products/";
   static const String profile="profile";
+  static const String showCart="cart";
   static const String addToCart="add-to-cart";
+  static const String Updatecart="update-cart";
+  static const String removefromcart="remove-from-cart";
 
 
   
