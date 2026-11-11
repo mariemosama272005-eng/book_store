@@ -38,6 +38,18 @@
 # cart Screen
 <img width="1238" height="1785" alt="image" src="https://github.com/user-attachments/assets/5f80df54-4e94-4824-b5a3-86b94400298c" />
 
+# forget Password screen
+<img width="1229" height="1783" alt="Screenshot 2026-11-11 201414" src="https://github.com/user-attachments/assets/44efcd89-9f43-4ebd-906c-b62fbc2ebec0" />
+
+# otp screen
+<img width="1205" height="1788" alt="Screenshot 2026-11-11 201433" src="https://github.com/user-attachments/assets/d5e4c077-1637-461e-b160-a1aec0df2da0" />
+
+#  create new password screen 
+<img width="1231" height="1740" alt="Screenshot 2026-11-11 201446" src="https://github.com/user-attachments/assets/2af296c4-174c-46fc-8b69-7aa6576a2ed6" />
+
+# success
+<img width="1235" height="1745" alt="Screenshot 2026-11-11 201459" src="https://github.com/user-attachments/assets/3c42d3c4-550a-4292-a984-5bc05ea6de2e" />
+
 
 
 
