@@ -11,6 +11,8 @@ static const String searchScreen="SearchScreen";
 static const String bookditailsScreen="Bookdetailsscreen";
 static const String buttomNavbarScreen="ButtomNavBarscreen";
 static const String profileScreen="Profilescreen";
+static const String createNewPassword="createNewpassscreen";
+static const String otpScreen="OTPscreen";
 
 
 

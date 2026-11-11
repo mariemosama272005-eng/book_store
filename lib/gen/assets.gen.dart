@@ -33,6 +33,10 @@ class $AssetsIconsGen {
 class $AssetsImagesGen {
   const $AssetsImagesGen();
 
+  /// File path: assets/images/Successmark.png
+  AssetGenImage get successmark =>
+      const AssetGenImage('assets/images/Successmark.png');
+
   /// File path: assets/images/splash.png
   AssetGenImage get splash => const AssetGenImage('assets/images/splash.png');
 
@@ -44,7 +48,12 @@ class $AssetsImagesGen {
   AssetGenImage get welcome => const AssetGenImage('assets/images/welcome.png');
 
   /// List of all assets
-  List<AssetGenImage> get values => [splash, splashAndriod12, welcome];
+  List<AssetGenImage> get values => [
+    successmark,
+    splash,
+    splashAndriod12,
+    welcome,
+  ];
 }
 
 class $AssetsTranslationsGen {

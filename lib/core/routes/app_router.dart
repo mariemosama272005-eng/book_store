@@ -3,8 +3,10 @@ import 'package:bookia/feature/Home/presentation/cubit/cubit/home_cubit.dart';
 import 'package:bookia/feature/Home/presentation/ui/home_screen.dart';
 import 'package:bookia/feature/Home/presentation/ui/searchscreen.dart';
 import 'package:bookia/feature/auth/presentation/cubit/cubit/authcubit_cubit.dart';
+import 'package:bookia/feature/auth/presentation/ui/createNewPass_screen.dart';
 import 'package:bookia/feature/auth/presentation/ui/forgetPass_screen.dart';
 import 'package:bookia/feature/auth/presentation/ui/login_screen.dart';
+import 'package:bookia/feature/auth/presentation/ui/otp_screen.dart';
 import 'package:bookia/feature/auth/presentation/ui/register_screen.dart';
 import 'package:bookia/feature/book_details/presentation/cubit/cubit/bookdetailscubit_cubit.dart';
 import 'package:bookia/feature/book_details/presentation/ui/bookDetailsScreen.dart';
@@ -42,6 +44,12 @@ class AppRouter {
 
       case AppRoutes.forgetpassScreen:
         return MaterialPageRoute(builder: (_) => ForgetPasswordScreen());
+
+      case AppRoutes.otpScreen:
+        return MaterialPageRoute(builder: (_) => OtpScreen());
+
+      case AppRoutes.createNewPassword:
+        return MaterialPageRoute(builder: (_) =>CreateNewPasswordScreen());
 
       case AppRoutes.bookditailsScreen:
       int id=setting.arguments as int;
