@@ -49,6 +49,12 @@
 
 # success
 <img width="1235" height="1745" alt="Screenshot 2026-11-11 201459" src="https://github.com/user-attachments/assets/3c42d3c4-550a-4292-a984-5bc05ea6de2e" />
+# error handling at login
+<img width="1147" height="1767" alt="Screenshot 2026-11-12 133400" src="https://github.com/user-attachments/assets/39950cf9-41fb-493c-921f-acd2f585f063" />
+
+# error handling at register
+<img width="1232" height="1764" alt="image" src="https://github.com/user-attachments/assets/5cf08048-72af-4331-b7f4-fa2ea1018c46" />
+
 
 
 
