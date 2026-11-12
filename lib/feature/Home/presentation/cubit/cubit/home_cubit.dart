@@ -9,51 +9,50 @@ part 'home_state.dart';
 
 class HomeCubit extends Cubit<HomeState> {
   HomeCubit() : super(HomeInitial());
-  getbestsellerBooks()async{
-emit(getbestsellerLoading());
-final response = await HomeRepo.getBestseller();
-if(response is BookModel){
-  emit(getbestsellerSuccess(response.data?.products));
-}else{
-  emit(getbestsellerError());
-}
 
+  Future<void> getbestsellerBooks() async {
+    emit(getbestsellerLoading());
+    final response = await HomeRepo.getBestseller();
+    if (response is BookModel) {
+      emit(getbestsellerSuccess(response.data?.products));
+    } else {
+      emit(getbestsellerError());
+    }
   }
 
-
-search(String text)async{
-  emit(SearchLoading());
-  final data =await HomeRepo.search(text);
-  if(data is List<Products>){
-    emit(SearchSuccess(data));
+  Future<void> search(String text) async {
+    emit(SearchLoading());
+    final data = await HomeRepo.search(text);
+    if (data is List<Products>) {
+      emit(SearchSuccess(data));
+    } else {
+      emit(SearchError());
+    }
   }
-  else{
-    emit(SearchError());
+
+  Future<void> slider() async {
+    emit(SliderLoading());
+    final res = await HomeRepo.slider();
+    if (res is SliderModel) {
+      emit(SliderSuccess(res.data?.sliders));
+    } else {
+      emit(SliderError());
+    }
   }
 
-}
-slider()async{
-  emit(SliderLoading());
-  final res =await HomeRepo.slider();
-  if(res is SliderModel){
-    emit(SliderSuccess(res.data?.sliders));
+  Future<void> addToCart(int productId) async {
+    emit(addToCartLoading());
+    try {
+      final success = await HomeRepo.addToCart(productId);
+      if (success) {
+        emit(addToCartSuccess());
+      } else {
+        emit(addToCartError('Failed to add product to cart.'));
+      }
+    } catch (e) {
+      emit(addToCartError(
+        e.toString().replaceFirst('Exception: ', ''),
+      ));
+    }
   }
-  else{
-    emit(SliderError());
-  }
-}
-
-
-
-addToCart(int productId)async{
-  emit(addToCartLoading());
-  final res =await HomeRepo.addToCart(productId);
-  if(res){
-    emit(addToCartSuccess());
-  }
-  else{
-    emit(addToCartError());
-  }
-}
-
 }

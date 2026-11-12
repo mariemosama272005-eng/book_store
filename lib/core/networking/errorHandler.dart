@@ -2,11 +2,11 @@ import 'package:dio/dio.dart';
 
 class DioErrorHandler {
   static String handle(DioException e) {
-    // Handle API response errors
+
     final responseData = e.response?.data;
 
     if (responseData is Map) {
-      // Validation errors
+
       final errors = responseData['errors'];
 
       if (errors is Map && errors.isNotEmpty) {
@@ -52,9 +52,9 @@ class DioErrorHandler {
 
       case DioExceptionType.unknown:
         return 'Something went wrong. Please try again.';
+
       case DioExceptionType.transformTimeout:
-        // TODO: Handle this case.
-        throw UnimplementedError();
+        return 'Response processing timed out. Please try again.';
     }
   }
 
@@ -75,8 +75,17 @@ class DioErrorHandler {
       case 422:
         return 'Please check your entered data.';
 
+      case 429:
+        return 'Too many requests. Please wait and try again.';
+
       case 500:
         return 'Server error. Please try again later.';
+
+      case 502:
+        return 'Bad gateway. Please try again later.';
+
+      case 503:
+        return 'Service unavailable. Please try again later.';
 
       default:
         return 'Something went wrong. Please try again.';

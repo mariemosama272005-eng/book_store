@@ -1,6 +1,7 @@
 import 'package:bookia/core/Services/local/local_helper.dart';
 import 'package:bookia/core/networking/api_endPoints.dart';
 import 'package:bookia/core/networking/dio_factory.dart';
+import 'package:bookia/core/networking/errorHandler.dart';
 import 'package:bookia/core/util/app_constans.dart';
 import 'package:bookia/feature/Home/data/models/book_model.dart';
 import 'package:bookia/feature/Home/data/models/sliderModel.dart';
@@ -26,11 +27,9 @@ class HomeRepo {
         options: _getAuthOptions(),
       );
       if (response?.statusCode == 200) {
-        BookModel book = BookModel.fromJson(response?.data);
-        return book;
-      } else {
-        return null;
+        return BookModel.fromJson(response?.data);
       }
+      return null;
     } catch (e) {
       return null;
     }
@@ -46,11 +45,10 @@ class HomeRepo {
         options: _getAuthOptions(),
       );
       if (response?.statusCode == 200) {
-        BookModel book = BookModel.fromJson(response?.data);
+        final book = BookModel.fromJson(response?.data);
         return book.data?.products;
-      } else {
-        return null;
       }
+      return null;
     } catch (e) {
       return null;
     }
@@ -63,11 +61,9 @@ class HomeRepo {
         options: _getAuthOptions(),
       );
       if (response?.statusCode == 200) {
-        SliderModel slider = SliderModel.fromJson(response?.data);
-        return slider;
-      } else {
-        return null;
+        return SliderModel.fromJson(response?.data);
       }
+      return null;
     } catch (e) {
       return null;
     }
@@ -83,16 +79,10 @@ class HomeRepo {
         options: _getAuthOptions(),
       );
 
-      print('ADD TO CART STATUS: ${response?.statusCode}');
-      print('ADD TO CART DATA: ${response?.data}');
-
-      if (response?.statusCode == 200 || response?.statusCode == 201) {
-        return true;
-      } else {
-        return false;
-      }
+      return response?.statusCode == 200 || response?.statusCode == 201;
+    } on DioException catch (e) {
+      throw Exception(DioErrorHandler.handle(e));
     } catch (e) {
-      print('ADD TO CART ERROR: $e');
       return false;
     }
   }

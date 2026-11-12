@@ -11,7 +11,6 @@ import 'package:bookia/feature/auth/presentation/ui/register_screen.dart';
 import 'package:bookia/feature/book_details/presentation/cubit/cubit/bookdetailscubit_cubit.dart';
 import 'package:bookia/feature/book_details/presentation/ui/bookDetailsScreen.dart';
 import 'package:bookia/feature/buttomNavBar/presentation/ui/buttomNavBar.dart';
-import 'package:bookia/feature/profile/presentation/ui/profile_screen.dart';
 import 'package:bookia/feature/welcome/presentation/ui/welcome_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -42,25 +41,36 @@ class AppRouter {
           },
         );
 
+      // ForgetPasswordScreen creates its own BlocProvider internally.
       case AppRoutes.forgetpassScreen:
-        return MaterialPageRoute(builder: (_) => ForgetPasswordScreen());
+        return MaterialPageRoute(
+          builder: (_) => const ForgetPasswordScreen(),
+        );
 
+      // OtpScreen creates its own BlocProvider internally.
+      // Receives email as String argument.
       case AppRoutes.otpScreen:
-        return MaterialPageRoute(builder: (_) => OtpScreen());
+        return MaterialPageRoute(
+          settings: setting,
+          builder: (_) => const OtpScreen(),
+        );
 
+      // CreateNewPasswordScreen creates its own BlocProvider internally.
+      // Receives email as String argument.
       case AppRoutes.createNewPassword:
-        return MaterialPageRoute(builder: (_) =>CreateNewPasswordScreen());
+        return MaterialPageRoute(
+          settings: setting,
+          builder: (_) => const CreateNewPasswordScreen(),
+        );
 
       case AppRoutes.bookditailsScreen:
-      int id=setting.arguments as int;
+        final id = setting.arguments as int;
         return MaterialPageRoute(
           builder: (_) => BlocProvider(
             create: (context) => BookdetailscubitCubit()..getDetails(id),
             child: Bookdetailsscreen(),
           ),
         );
-
-      
 
       case AppRoutes.searchScreen:
         return MaterialPageRoute(
@@ -69,9 +79,10 @@ class AppRouter {
             child: Searchscreen(),
           ),
         );
-          case AppRoutes.buttomNavbarScreen:
+
+      case AppRoutes.buttomNavbarScreen:
         return MaterialPageRoute(builder: (_) => ButtomnavbarScreen());
-         
     }
+    return null;
   }
 }

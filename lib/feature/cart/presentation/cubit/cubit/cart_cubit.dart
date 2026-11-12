@@ -8,9 +8,7 @@ part 'cart_state.dart';
 class CartCubit extends Cubit<CartState> {
   CartCubit() : super(CartInitial());
 
-  // =========================
-  // SHOW CART
-  // =========================
+  
   Future<void> showCart() async {
     emit(CartLoading());
 
@@ -23,9 +21,6 @@ class CartCubit extends Cubit<CartState> {
     }
   }
 
-  // =========================
-  // UPDATE CART
-  // =========================
   Future<void> updateCart({
     required int itemId,
     required int quantity,
@@ -54,9 +49,7 @@ class CartCubit extends Cubit<CartState> {
     }
   }
 
-  // =========================
-  // REMOVE FROM CART
-  // =========================
+
   Future<void> removeFromCart({
     required int itemId,
   }) async {
@@ -79,9 +72,7 @@ class CartCubit extends Cubit<CartState> {
     }
   }
 
-  // =========================
-  // GET CURRENT CART DATA
-  // =========================
+
   Data? _getCurrentCartData() {
     final currentState = state;
 

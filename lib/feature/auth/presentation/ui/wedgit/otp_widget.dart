@@ -5,11 +5,15 @@ import 'package:bookia/core/theme/app_textStyle.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-
 class OtpWidget extends StatelessWidget {
   final VoidCallback onVerify;
+  final List<TextEditingController> controllers;
 
-  const OtpWidget({super.key, required this.onVerify});
+  const OtpWidget({
+    super.key,
+    required this.onVerify,
+    required this.controllers,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +24,7 @@ class OtpWidget extends StatelessWidget {
         children: [
           const AppbarWedgit(),
           20.verticalSpace,
-         
+
           Text(
             "OTP Verification",
             style: AppTextstyle.font30regular,
@@ -31,6 +35,7 @@ class OtpWidget extends StatelessWidget {
             style: AppTextstyle.subTextstyle,
           ),
           32.verticalSpace,
+
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: List.generate(
@@ -39,6 +44,7 @@ class OtpWidget extends StatelessWidget {
                 width: 50.w,
                 height: 60.h,
                 child: TextFormField(
+                  controller: controllers[index],
                   textAlign: TextAlign.center,
                   keyboardType: TextInputType.number,
                   maxLength: 1,
@@ -51,13 +57,20 @@ class OtpWidget extends StatelessWidget {
                     ),
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(8.r),
-                      borderSide: BorderSide(color:AppColors.mainColor),
+                      borderSide: BorderSide(color: AppColors.mainColor),
                     ),
                   ),
+                  onChanged: (value) {
+                    // Auto-advance to next field
+                    if (value.isNotEmpty && index < 4) {
+                      FocusScope.of(context).nextFocus();
+                    }
+                  },
                 ),
               ),
             ),
           ),
+
           40.verticalSpace,
           MainbuttonWedgit(
             title: "Verify",

@@ -1,15 +1,16 @@
 class ApiEndpoints {
-  static const String login="login";
-  static const String reg="register";
-  static const String bestseller="products-bestseller";
-  static const String search="products-search";
-  static const String slider="sliders";
-  static const String ditails="products/";
-  static const String profile="profile";
-  static const String showCart="cart";
-  static const String addToCart="add-to-cart";
-  static const String Updatecart="update-cart";
-  static const String removefromcart="remove-from-cart";
-
-
+  static const String login = "login";
+  static const String reg = "register";
+  static const String bestseller = "products-bestseller";
+  static const String search = "products-search";
+  static const String slider = "sliders";
+  static const String ditails = "products/";
+  static const String profile = "profile";
+  static const String showCart = "cart";
+  static const String addToCart = "add-to-cart";
+  static const String Updatecart = "update-cart";
+  static const String removefromcart = "remove-from-cart";
+  static const String forgetpass = "forget-password";
+  static const String checkForgetPassword = "check-forget-password";
+  static const String resetPassword = "reset-password";
 }

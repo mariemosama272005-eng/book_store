@@ -59,10 +59,10 @@ class HomeScreen extends StatelessWidget {
                   } else if (state is addToCartError) {
                     Navigator.of(context, rootNavigator: true).pop();
                     ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        content: Text("Failed to add product to cart"),
+                      SnackBar(
+                        content: Text(state.message ?? "Failed to add product to cart"),
                         backgroundColor: Colors.red,
-                        duration: Duration(seconds: 2),
+                        duration: const Duration(seconds: 2),
                       ),
                     );
                   }

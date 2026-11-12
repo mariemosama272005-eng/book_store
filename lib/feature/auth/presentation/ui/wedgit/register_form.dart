@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:bookia/core/routes/app_routes.dart';
 import 'package:bookia/core/shared_wedgits/mainButton_wedgit.dart';
 import 'package:bookia/core/shared_wedgits/textForm_wedgit.dart';
@@ -21,6 +19,7 @@ class RegisterForm extends StatefulWidget {
 
 class _RegisterFormState extends State<RegisterForm> {
   var formState = GlobalKey<FormState>();
+
   var nameController = TextEditingController();
   var emailController = TextEditingController();
   var passController = TextEditingController();
@@ -43,27 +42,56 @@ class _RegisterFormState extends State<RegisterForm> {
   Widget build(BuildContext context) {
     return BlocListener<AuthcubitCubit, AuthcubitState>(
       listener: (context, state) {
-        if (state is registerLoadingState) { 
+        // Loading
+        if (state is registerLoadingState) {
           showDialog(
             context: context,
             barrierDismissible: false,
-            builder: (context) => AlertDialog(
-              backgroundColor: Colors.transparent,
-              content: Center(
-                child: CircularProgressIndicator(color: AppColors.mainColor),
-              ),
-            ),
+            builder: (context) {
+              return AlertDialog(
+                backgroundColor: Colors.transparent,
+                elevation: 0,
+                content: Center(
+                  child: CircularProgressIndicator(
+                    color: AppColors.mainColor,
+                  ),
+                ),
+              );
+            },
           );
-        } else if (state is RegisterSuccessState) { 
-          Navigator.pop(context); 
-          Navigator.pushReplacementNamed(context, AppRoutes.buttomNavbarScreen);
-        } else if (state is RegisterErrorState) {
-          Navigator.pop(context); 
+        }
+
+        // Register Success
+        else if (state is RegisterSuccessState) {
+          Navigator.pop(context);
+
+          Navigator.pushReplacementNamed(
+            context,
+            AppRoutes.buttomNavbarScreen,
+          );
+        }
+
+        // Register Error
+        else if (state is RegisterErrorState) {
+          Navigator.pop(context);
+
           showDialog(
             context: context,
-            builder: (context) => AlertDialog(
-              content: Text("Error"),
-            ),
+            barrierDismissible: false,
+            builder: (context) {
+              return AlertDialog(
+                title: const Text('Register Failed'),
+                content: Text(state.message),
+                actions: [
+                  TextButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    child: const Text('OK'),
+                  ),
+                ],
+              );
+            },
           );
         }
       },
@@ -71,19 +99,20 @@ class _RegisterFormState extends State<RegisterForm> {
         key: formState,
         child: Column(
           children: [
-         
             TextformWedgit(
               controller: nameController,
-              hintT: "name".tr(), 
+              hintT: "name".tr(),
               validator: (v) {
                 if (v == null || v.isEmpty) {
                   return "nameReq".tr();
                 }
+
                 return null;
               },
             ),
+
             15.verticalSpace,
-            
+
             TextformWedgit(
               controller: emailController,
               hintT: "email".tr(),
@@ -91,15 +120,17 @@ class _RegisterFormState extends State<RegisterForm> {
                 if (v == null || v.isEmpty) {
                   return "emailRe".tr();
                 }
+
                 if (!AppValidator.isValidEmail(v)) {
                   return "validEmail".tr();
                 }
+
                 return null;
               },
             ),
+
             15.verticalSpace,
-           
-        
+
             TextformWedgit(
               controller: passController,
               hintT: "pass".tr(),
@@ -108,69 +139,76 @@ class _RegisterFormState extends State<RegisterForm> {
                 if (v == null || v.isEmpty) {
                   return "passReq".tr();
                 }
+
                 if (!AppValidator.isPasswordValid(v)) {
                   return "validPass".tr();
                 }
+
                 return null;
               },
             ),
+
             15.verticalSpace,
-            
-            
+
             TextformWedgit(
               controller: confirmPassController,
-              hintT: "confPass".tr(), 
+              hintT: "confPass".tr(),
               isPass: true,
               validator: (v) {
                 if (v == null || v.isEmpty) {
                   return "passReq".tr();
                 }
+
                 if (v != passController.text) {
                   return "passNotMatch".tr();
                 }
+
                 return null;
               },
             ),
+
             15.verticalSpace,
 
-           
             TextformWedgit(
               controller: addressController,
-              hintT: "address".tr(), 
+              hintT: "address".tr(),
               validator: (v) {
                 if (v == null || v.isEmpty) {
                   return "addressReq".tr();
                 }
+
                 return null;
               },
             ),
+
             15.verticalSpace,
 
-           
             TextformWedgit(
               controller: cityController,
-              hintT: "city".tr(), 
+              hintT: "city".tr(),
               validator: (v) {
                 if (v == null || v.isEmpty) {
                   return "cityReq".tr();
                 }
+
                 return null;
               },
             ),
+
             30.verticalSpace,
-            
-            
+
             MainbuttonWedgit(
               title: "register".tr(),
               onTap: () {
                 if (formState.currentState?.validate() ?? false) {
                   context.read<AuthcubitCubit>().register(
-                        name: nameController.text,
-                        email: emailController.text,
+                        name: nameController.text.trim(),
+                        email: emailController.text.trim(),
                         password: passController.text,
-                        passwordConfirmation: confirmPassController.text,
-                        address: addressController.text,
-                        city: cityController.text,
+                        passwordConfirmation:
+                            confirmPassController.text,
+                        address: addressController.text.trim(),
+                        city: cityController.text.trim(),
                       );
                 }
               },
