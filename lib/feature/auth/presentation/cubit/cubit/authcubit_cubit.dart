@@ -1,4 +1,3 @@
-
 import 'package:bloc/bloc.dart';
 import 'package:bookia/feature/auth/data/Repo/auth_repo.dart';
 import 'package:meta/meta.dart';
@@ -23,10 +22,14 @@ class AuthcubitCubit extends Cubit<AuthcubitState> {
       if (response) {
         emit(LoginSuccessState());
       } else {
-        emit(LoginErrorState());
+        emit(LoginErrorState('Login failed. Please try again.'));
       }
     } catch (e) {
-      emit(LoginErrorState());
+      emit(
+        LoginErrorState(
+          e.toString().replaceFirst('Exception: ', ''),
+        ),
+      );
     }
   }
 
@@ -53,9 +56,14 @@ class AuthcubitCubit extends Cubit<AuthcubitState> {
       if (response) {
         emit(RegisterSuccessState());
       } else {
-        emit(RegisterErrorState());
+        emit(RegisterErrorState('Registration failed. Please try again.'));
       }
     } catch (e) {
-      emit(RegisterErrorState());
+      emit(
+        RegisterErrorState(
+          e.toString().replaceFirst('Exception: ', ''),
+        ),
+      );
     }
-  }}
+  }
+}

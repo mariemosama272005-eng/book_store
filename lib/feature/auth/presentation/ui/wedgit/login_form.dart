@@ -1,4 +1,3 @@
-
 import 'package:bookia/core/networking/dio_factory.dart';
 import 'package:bookia/core/routes/app_routes.dart';
 import 'package:bookia/core/shared_wedgits/mainButton_wedgit.dart';
@@ -36,6 +35,7 @@ class _LoginFormState extends State<LoginForm> {
   Widget build(BuildContext context) {
     return BlocListener<AuthcubitCubit, AuthcubitState>(
       listener: (context, state) {
+        // Loading
         if (state is loginLoadingState) {
           showDialog(
             context: context,
@@ -52,13 +52,42 @@ class _LoginFormState extends State<LoginForm> {
               );
             },
           );
-        } else if (state is LoginSuccessState) {
-       DioFactory.init();
-        
-            //Navigator.pop(context);
-          
+        }
 
-          Navigator.pushNamed(context, AppRoutes.buttomNavbarScreen);
+        // Login Success
+        else if (state is LoginSuccessState) {
+          Navigator.pop(context);
+
+          DioFactory.init();
+
+          Navigator.pushNamed(
+            context,
+            AppRoutes.buttomNavbarScreen,
+          );
+        }
+
+        // Login Error
+        else if (state is LoginErrorState) {
+          Navigator.pop(context);
+
+          showDialog(
+            context: context,
+            barrierDismissible: false,
+            builder: (context) {
+              return AlertDialog(
+                title: const Text('Login Failed'),
+                content: Text(state.message),
+                actions: [
+                  TextButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    child: const Text('OK'),
+                  ),
+                ],
+              );
+            },
+          );
         }
       },
       child: Form(
@@ -123,10 +152,9 @@ class _LoginFormState extends State<LoginForm> {
               onTap: () {
                 if (formState.currentState?.validate() ?? false) {
                   context.read<AuthcubitCubit>().login(
-                    email: emailController.text.trim(),
-                    password: passcontroller.text,
-                  );
-               
+                        email: emailController.text.trim(),
+                        password: passcontroller.text,
+                      );
                 }
               },
             ),

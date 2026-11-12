@@ -2,6 +2,7 @@
 import 'package:bookia/core/Services/local/local_helper.dart';
 import 'package:bookia/core/networking/api_endPoints.dart';
 import 'package:bookia/core/networking/dio_factory.dart';
+import 'package:bookia/core/networking/errorHandler.dart';
 import 'package:bookia/core/util/app_constans.dart';
 import 'package:dio/dio.dart';
 
@@ -34,9 +35,12 @@ class AuthRepo {
       }
 
       return false;
-    } catch (e) {
-      return false;
-    }
+    }on DioException catch (e) {
+  throw Exception(DioErrorHandler.handle(e));
+
+}catch (e) {
+  throw Exception('Something went wrong. Please try again.');
+}
   }
 
   static Future<bool> Register({
@@ -90,9 +94,11 @@ class AuthRepo {
       }
 
       return false;
-    } catch (e) {
-      return false;
-    }
+    }on DioException catch (e) {
+  throw Exception(DioErrorHandler.handle(e));
+}catch (e) {
+  throw Exception('Something went wrong. Please try again.');
+}
   }
 
   static Future<void> saveToken(String token) async {
