@@ -1,7 +1,9 @@
 import 'package:bookia/bookia_app.dart';
 import 'package:bookia/core/Services/local/local_helper.dart';
 import 'package:bookia/core/networking/dio_factory.dart';
+import 'package:bookia/firebase_options.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
 void main()async {
@@ -9,6 +11,9 @@ void main()async {
   await EasyLocalization.ensureInitialized();
    await LocalHelper.init();
    DioFactory.init(); 
+   await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+);
   runApp(EasyLocalization(
     supportedLocales: [Locale('en'), Locale('ar')],
       path: 'assets/translations', 

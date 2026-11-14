@@ -13,7 +13,7 @@ class OtpScreen extends StatefulWidget {
 }
 
 class _OtpScreenState extends State<OtpScreen> {
-  /// Email passed from ForgetPasswordScreen.
+
   late final String email;
   final List<TextEditingController> _otpControllers =
       List.generate(5, (_) => TextEditingController());
@@ -60,14 +60,14 @@ class _OtpScreenState extends State<OtpScreen> {
                   ),
                 );
               } else if (state is CheckOtpSuccessState) {
-                Navigator.pop(context); // dismiss loading
+                Navigator.pop(context); 
                 Navigator.pushNamed(
                   context,
                   AppRoutes.createNewPassword,
                   arguments: email,
                 );
               } else if (state is CheckOtpErrorState) {
-                Navigator.pop(context); // dismiss loading
+                Navigator.pop(context);
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(
                     content: Text(state.message),

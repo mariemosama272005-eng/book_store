@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "979663390925",
+    "project_id": "course-70d7d",
+    "storage_bucket": "course-70d7d.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:979663390925:android:ad4c7335bbaaac143d0184",
+        "android_client_info": {
+          "package_name": "com.example.bookia"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB68ota-IVphlHWagIoITDqc_ohR8AcaPc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

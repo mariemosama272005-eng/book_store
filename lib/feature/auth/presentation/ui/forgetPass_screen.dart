@@ -46,14 +46,14 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
                   ),
                 );
               } else if (state is ForgotPasswordSuccessState) {
-                Navigator.pop(context); // dismiss loading
+                Navigator.pop(context);
                 Navigator.pushNamed(
                   context,
                   AppRoutes.otpScreen,
                   arguments: emailController.text.trim(),
                 );
               } else if (state is ForgotPasswordErrorState) {
-                Navigator.pop(context); // dismiss loading
+                Navigator.pop(context); 
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(
                     content: Text(state.message),

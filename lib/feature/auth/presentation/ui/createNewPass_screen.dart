@@ -23,7 +23,6 @@ class _CreateNewPasswordScreenState extends State<CreateNewPasswordScreen> {
   final newPassController = TextEditingController();
   final confirmPassController = TextEditingController();
 
-  /// Email forwarded from OTP screen.
   late final String email;
 
   @override
@@ -114,10 +113,10 @@ class _CreateNewPasswordScreenState extends State<CreateNewPasswordScreen> {
                   ),
                 );
               } else if (state is ResetPasswordSuccessState) {
-                Navigator.pop(context); // dismiss loading
+                Navigator.pop(context);
                 _showPasswordChangedAlert(context);
               } else if (state is ResetPasswordErrorState) {
-                Navigator.pop(context); // dismiss loading
+                Navigator.pop(context);
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(
                     content: Text(state.message),
